@@ -1,2 +1,1 @@
-Flask==0.10.1
-notion
+notion==0.0.25
