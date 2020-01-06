@@ -218,9 +218,9 @@ def automatic_article_check(cv):
             row_cache[row.id] = None
             continue
 
-        row.title = state["title"]
         row.set_property("Tags", state["tags"])
         row.set_property("Status", state["status"])
+        row.title = state["title"]
         print("Title: %s, Tags: %s, Status: %s" % (state["title"],
                                                    state["tags"],
                                                    state["status"]))
