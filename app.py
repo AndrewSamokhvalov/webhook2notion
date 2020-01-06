@@ -4,7 +4,9 @@ import datetime
 import os
 import re
 import time
+from threading import Thread
 
+from flask import Flask
 from notion.client import NotionClient
 
 status_labels = {
@@ -215,9 +217,12 @@ def automatic_article_check(cv):
         row.title = state["title"]
         row.set_property("Tags", state["tags"])
         row.set_property("Status", state["status"])
+        print("Title: %s, Tags: %s, Status: %s" % (state["title"],
+                                                   state["tags"],
+                                                   state["status"]))
 
 
-if __name__ == '__main__':
+def check_notion_table():
     # Obtain the `token_v2` value by inspecting your browser cookies on a logged-in session on Notion.so
     client = NotionClient(token_v2=os.environ.get("TOKEN"))
 
@@ -226,4 +231,24 @@ if __name__ == '__main__':
 
     while True:
         time.sleep(10)
+        print("exec automatic_article_check()")
         automatic_article_check(cv)
+
+
+app = Flask(__name__)
+
+
+@app.route('/', methods=['GET'])
+def main_handler():
+    # fuck you heroku
+    pass
+
+
+if __name__ == '__main__':
+    app.debug = True
+
+    t = Thread(target=check_notion_table)
+    t.start()
+
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
