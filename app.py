@@ -96,6 +96,8 @@ def extract_instapaper_tags(folder):
     status = "pending"
 
     folder = folder.encode("utf-8")
+    if len(folder) == 0:
+        return None
 
     if folder[:3] == pending_sign:
         folder = folder.replace(pending_sign, b"")
@@ -163,6 +165,9 @@ def automatic_remove():
 
 
 def extract_state(title):
+    if len(title) == 0:
+        return None
+    
     if title[0] != "[":
         return None
 
