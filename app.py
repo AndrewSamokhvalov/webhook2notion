@@ -167,7 +167,7 @@ def automatic_remove():
 def extract_state(title):
     if len(title) == 0:
         return None
-    
+
     if title[0] != "[":
         return None
 
@@ -213,10 +213,9 @@ def automatic_article_check(cv):
         if row.id in row_cache:
             continue
 
-        row_cache[row.id] = None
-
         state = extract_state(row.title)
         if state is None:
+            row_cache[row.id] = None
             continue
 
         row.title = state["title"]
@@ -225,6 +224,7 @@ def automatic_article_check(cv):
         print("Title: %s, Tags: %s, Status: %s" % (state["title"],
                                                    state["tags"],
                                                    state["status"]))
+        row_cache[row.id] = None
 
 
 def check_notion_table():
