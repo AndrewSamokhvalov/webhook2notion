@@ -13,7 +13,7 @@ status_labels = {
     "pending": "pending",
     "p": "pending",
     "dnhtua": "don't know how to use atm",
-    "iftd": "if nothing to do",
+    "intd": "if nothing to do",
     "if nothing to do": "if nothing to do",
     "completed": "completed",
     "c": "completed",
